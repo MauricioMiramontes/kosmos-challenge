@@ -32,6 +32,8 @@ import {
 class Formulario extends Component {
   constructor(props) {
     super(props);
+
+    // Estado inicial del state
     this.state = {
       fields: [
         {
@@ -49,6 +51,8 @@ class Formulario extends Component {
       ]
     }
 
+
+    // Funciones para interactuar con el form
     this.handleChange = this.handleChange.bind(this);
     this.addTextField = this.addTextField.bind(this);
     this.addSelectField = this.addSelectField.bind(this);
@@ -56,6 +60,7 @@ class Formulario extends Component {
     this.deleteField = this.deleteField.bind(this);
   }
 
+  // Borra un campo específico
   deleteField(e, id) {
     console.log(id)
     var updated_fields = this.state.fields;
@@ -63,8 +68,10 @@ class Formulario extends Component {
     this.setState({ fields: updated_fields })
   }
 
+  //Agrega un campo de tipo opciones
   addOptionsField(e) {
 
+    // Se crea un nuevo elemento
     var new_element = {
       component: "radio",
       label: "Radio",
@@ -72,33 +79,42 @@ class Formulario extends Component {
       _uid: "5b9b79d2-32f2-42a1-b89f-203dfc0b6b98"
     }
 
+    // Se crea una copia del estado
     var updated_fields = this.state.fields;
+
+    // Se actualiza la copia
     updated_fields = updated_fields.concat(new_element)
 
+    // Se actualiza el estado
     this.setState({ fields: updated_fields });
     console.log(this.state.fields)
   }
 
+  //Agrega un campo de tipo Select
   addSelectField(e) {
-
-
+    // Se crea un nuevo elemento
     var new_element = {
       component: "select",
       label: "Select",
       type: "select",
       _uid: "5b9b79d2-32f2-42a1-b89f-203dfc0b6b98"
     }
-
+    
+    // Se crea una copia del estado
     var updated_fields = this.state.fields;
+    // Se actualiza la copia
     updated_fields = updated_fields.concat(new_element)
 
+    // Se actualiza el estado
     this.setState({ fields: updated_fields });
     console.log(this.state.fields)
 
   }
 
+  //Agrega un campo de tipo Text
   addTextField(e) {
 
+    // Se crea un nuevo elemento
     var new_element = {
       component: "text",
       label: "Text",
@@ -106,9 +122,13 @@ class Formulario extends Component {
       _uid: "5b9b79d2-32f2-42a1-b89f-203dfc0b6b98"
     }
 
+    // Se crea una copia del estado
     var updated_fields = this.state.fields;
+
+    // Se actualiza la copia
     updated_fields = updated_fields.concat(new_element)
 
+    // Se actualiza el estado
     this.setState({ fields: updated_fields });
     console.log(this.state.fields)
 
