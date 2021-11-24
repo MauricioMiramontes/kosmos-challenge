@@ -82,7 +82,7 @@ class Formulario extends Component {
       type: "select",
       _uid: "5b9b79d2-32f2-42a1-b89f-203dfc0b6b98"
     }
-    
+
     // Se crea una copia del estado
     var updated_fields = this.state.fields;
     // Se actualiza la copia
@@ -131,6 +131,7 @@ class Formulario extends Component {
             <Button
               color="primary"
               type="submit"
+              className="mt-1"
               onClick={(e) => {
                 e.preventDefault();
                 this.addTextField(e);
@@ -139,6 +140,7 @@ class Formulario extends Component {
               Agregar Campo Texto
             </Button>
             <Button
+              className="mt-1"
               color="primary"
               type="submit"
               onClick={(e) => {
@@ -149,6 +151,7 @@ class Formulario extends Component {
               Agregar Campo Opciones
             </Button>
             <Button
+              className="mt-1"
               color="primary"
               type="submit"
               onClick={(e) => {
@@ -190,7 +193,6 @@ class Formulario extends Component {
                     </Button>
                   </div>
                 )
-
               })}
             </form>
           </Col>
