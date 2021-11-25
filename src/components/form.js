@@ -15,6 +15,8 @@ import {
   ModalBody,
 } from "reactstrap";
 
+import Field from "./field.js";
+
 class Formulario extends Component {
   constructor(props) {
     super(props);
@@ -190,24 +192,15 @@ class Formulario extends Component {
                 {this.state.fields.map((field, id) => {
                   return (
                     <Row key={id}>
-                      <Col sm="7" md="7">
-                        <FormGroup>
-                          <InputGroup>
-                            <InputGroupText>
-                              {field.label}
-                            </InputGroupText>
-                            <Input
-                              placeholder={field.type}
-                              type={field.type}
-                              name={field.label}
-                              onChange={(e) => this.handleChange(e, id)}
-                            >
-                            </Input>
-                          </InputGroup>
-                        </FormGroup>
-                      </Col>
+                      <Field
+                        label={field.label}
+                        type={field.type}
+                        name={field.label}
+                        onChange={(e) => this.handleChange(e)}
+                      />
                       <Col sm="2" md="2">
                         < Button
+                        size = "lg"
                           color="primary"
                           type="submit"
                           onClick={(e) => {
@@ -215,7 +208,7 @@ class Formulario extends Component {
                             this.deleteField(e, id);
                           }}
                         >
-                          Borrar campo
+                         -
                         </Button>
                       </Col>
                     </Row>
