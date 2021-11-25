@@ -10,6 +10,9 @@ import {
   Input,
   InputGroupText,
   InputGroup,
+  Modal,
+  ModalHeader,
+  ModalBody,
 } from "reactstrap";
 
 class Formulario extends Component {
@@ -18,22 +21,26 @@ class Formulario extends Component {
 
     // Estado inicial del state
     this.state = {
+      // Modal de enviado
+      modal: false,
+
+      // Campos iniciales
       fields: [
         {
           component: "text",
           label: "Primer Campo",
           type: "text",
-          _uid: "5b9b79d2-32f2-42a1-b89f-203dfc0b6b98"
         },
         {
           component: "text",
           label: "Segundo campo",
           type: "text",
-          _uid: "6eff3638-80a7-4427-b07b-4c1be1c6b186"
         }
       ]
     }
 
+    // Funciones de modal
+    this.toggle = this.toggle.bind(this);
 
     // Funciones para interactuar con el form
     this.handleChange = this.handleChange.bind(this);
@@ -41,6 +48,14 @@ class Formulario extends Component {
     this.addSelectField = this.addSelectField.bind(this);
     this.addOptionsField = this.addOptionsField.bind(this);
     this.deleteField = this.deleteField.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+
+  }
+
+  toggle() {
+    this.setState({
+      modal: !this.state.modal
+    });
   }
 
   // Borra un campo específico
@@ -59,7 +74,6 @@ class Formulario extends Component {
       component: "radio",
       label: "Radio",
       type: "radio",
-      _uid: "5b9b79d2-32f2-42a1-b89f-203dfc0b6b98"
     }
 
     // Se crea una copia del estado
@@ -80,7 +94,6 @@ class Formulario extends Component {
       component: "select",
       label: "Select",
       type: "select",
-      _uid: "5b9b79d2-32f2-42a1-b89f-203dfc0b6b98"
     }
 
     // Se crea una copia del estado
@@ -102,7 +115,6 @@ class Formulario extends Component {
       component: "text",
       label: "Text",
       type: "text",
-      _uid: "5b9b79d2-32f2-42a1-b89f-203dfc0b6b98"
     }
 
     // Se crea una copia del estado
@@ -122,82 +134,111 @@ class Formulario extends Component {
     console.log(target.value);
   }
 
+  handleSubmit(e) {
+    e.preventDefault();
+    this.toggle();
+  }
 
   render() {
     return (
-      <Container>
-        <Row>
-          <Col sm="3" md="3">
-            <Button
-              color="primary"
-              type="submit"
-              className="mt-1"
-              onClick={(e) => {
-                e.preventDefault();
-                this.addTextField(e);
-              }}
-            >
-              Agregar Campo Texto
-            </Button>
-            <Button
-              className="mt-1"
-              color="primary"
-              type="submit"
-              onClick={(e) => {
-                e.preventDefault();
-                this.addOptionsField(e);
-              }}
-            >
-              Agregar Campo Opciones
-            </Button>
-            <Button
-              className="mt-1"
-              color="primary"
-              type="submit"
-              onClick={(e) => {
-                e.preventDefault();
-                this.addSelectField(e);
-              }}
-            >
-              Agregar Campo Select
-            </Button>
-          </Col>
-          <Col sm="9" md="9">
-            <form>
-              {this.state.fields.map((field, id) => {
-                return (
-                  <div key={field._uid}>
-                    <FormGroup>
-                      <InputGroup>
-                        <InputGroupText>
-                          {field.label}
-                        </InputGroupText>
-                        <Input
-                          placeholder={field.type}
-                          type={field.type}
-                          name={field.label}
-                          onChange={this.handleInputChange}
+      <>
+        <Modal isOpen={this.state.modal} toggle={this.toggle}>
+          <ModalHeader toggle={this.toggle}>Json Resultante</ModalHeader>
+          <ModalBody>
+            <pre>{JSON.stringify(this.state.fields, null, 2)}</pre>
+          </ModalBody>
+        </Modal>
+        <Container>
+          <Row>
+            <Col sm="3" md="3">
+              <Button
+                color="primary"
+                type="submit"
+                className="mt-1"
+                onClick={(e) => {
+                  e.preventDefault();
+                  this.addTextField(e);
+                }}
+              >
+                Agregar Campo Texto
+              </Button>
+              <Button
+                className="mt-1"
+                color="primary"
+                type="submit"
+                onClick={(e) => {
+                  e.preventDefault();
+                  this.addOptionsField(e);
+                }}
+              >
+                Agregar Campo Opciones
+              </Button>
+              <Button
+                className="mt-1"
+                color="primary"
+                type="submit"
+                onClick={(e) => {
+                  e.preventDefault();
+                  this.addSelectField(e);
+                }}
+              >
+                Agregar Campo Select
+              </Button>
+            </Col>
+            <Col sm="9" md="9" className="mt-2">
+              <form>
+                {this.state.fields.map((field, id) => {
+                  return (
+                    <Row key={id}>
+                      <Col sm="7" md="7">
+                        <FormGroup>
+                          <InputGroup>
+                            <InputGroupText>
+                              {field.label}
+                            </InputGroupText>
+                            <Input
+                              placeholder={field.type}
+                              type={field.type}
+                              name={field.label}
+                              onChange={(e) => this.handleChange(e, id)}
+                            >
+                            </Input>
+                          </InputGroup>
+                        </FormGroup>
+                      </Col>
+                      <Col sm="2" md="2">
+                        < Button
+                          color="primary"
+                          type="submit"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            this.deleteField(e, id);
+                          }}
                         >
-                        </Input>
-                      </InputGroup>
-                    </FormGroup>
-                    < Button
-                      color="primary"
-                      type="submit"
-                      onClick={(e) => {
-                        e.preventDefault();
-                        this.deleteField(e, id);
-                      }}
-                    >
-                      Borrar campo
-                    </Button>
-                  </div>
-                )
-              })}
-            </form>
-          </Col>
-        </Row>
-      </Container >
+                          Borrar campo
+                        </Button>
+                      </Col>
+                    </Row>
+                  )
+                })}
+              </form>
+            </Col>
+            <Col sm={{ size: 6, order: 2, offset: 5 }} md={{ size: 6, order: 2, offset: 6 }} className="aling-items-center">
+              < Button
+                color="primary"
+                type="submit"
+                className="mt-5"
+                onClick={(e) => {
+                  e.preventDefault();
+                  this.handleSubmit(e);
+                }}
+              >
+                Enviar Formulario
+              </Button>
+            </Col>
+          </Row>
+        </Container >
+      </>
     )
   }
 
