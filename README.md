@@ -14,6 +14,7 @@ iii. Opciones (tipo radio)
 e. Puedes utilizar algún framework de estilos o directamente crear tus estilos.
 2. Subir el código a github y subir su demo en algún servicio como “netlify”, “vercel” o
 “github pages”
+https://goofy-davinci-c55613.netlify.app
 3. Comparte tu URL a Ruben / Bryan de Kosmos para que podamos hacer la
 evaluación técnica. Si tu repo es público, mejor.
 ● El tiempo es tomado en consideración. Se espera lograr el objetivo entre 2 horas y 3
